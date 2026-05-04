@@ -1,0 +1,80 @@
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #F8F4E9;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #F2EADA;
+  border-right: 1px solid #E5DCC8;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  color: #FF6F00;
+}
+
+.sidebar-sub {
+  font-size: 12px;
+  color: #999;
+}
+
+.sidebar .nav-link {
+  color: #555;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.2s;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #E5DCC8;
+}
+
+.sidebar .active {
+  background-color: #FF6F00 !important;
+  color: white !important;
+}
+
+/* ================= HEADER ================= */
+.header {
+  background: white;
+  border-bottom: 1px solid #E5DCC8;
+}
+
+/* ================= CARD ================= */
+.custom-card {
+  border-radius: 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ================= TEXT ================= */
+.text-coffee {
+  color: #FF6F00;
+}
+
+/* ================= CHART ================= */
+.chart-container {
+  height: 200px;
+}
+
+.chart-bar {
+  width: 40px;
+  background-color: #FF6F00;
+  border-radius: 6px 6px 0 0;
+}
+
+/* ================= BADGE ================= */
+.badge-warning-custom {
+  background-color: #FFE0B2;
+  color: #E65100;
+}
+
+.badge-danger-custom {
+  background-color: #D32F2F;
+  color: white;
+}

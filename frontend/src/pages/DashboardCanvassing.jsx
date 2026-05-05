@@ -12,22 +12,6 @@ import {
   Table,
 } from "react-bootstrap";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-// FIX ICON MARKER
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
-  iconUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  shadowUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-});
-
 export default function DashboardCanvassing() {
   const [showModal, setShowModal] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
@@ -66,7 +50,7 @@ export default function DashboardCanvassing() {
 
           <div>
             <small className="text-light">CANVASSING</small>
-            <h4 className="fw-bold text-white mb-0">Dashboard</h4>
+            <h4 className="fw-bold text-white mb-0">Peta Kerja</h4>
           </div>
         </div>
 
@@ -167,40 +151,6 @@ export default function DashboardCanvassing() {
                 </tbody>
               </Table>
 
-            </Card.Body>
-          </Card>
-
-          {/* ================= MAP ================= */}
-         <Card className="custom-card">
-            <Card.Body style={{ height: "400px" }}>
-              <h5 className="mb-3">Peta Mitra</h5>
-
-              {/* WRAPPER BIAR MAP NGGAK KABUR */}
-              <div style={{ height: "calc(100% - 40px)" }}>
-                <MapContainer
-                  center={[-6.22, 106.82]}
-                  zoom={13}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-                  {mitra.map((m, i) => (
-                    <Marker key={i} position={m.posisi}>
-                      <Popup>
-                        <strong>{m.nama}</strong>
-                        <br />
-                        {m.jenis}
-                        <br />
-                        Sisa: {m.jumlah - m.terjual} pcs
-                      </Popup>
-                    </Marker>
-                  ))}
-                </MapContainer>
-              </div>
             </Card.Body>
           </Card>
         </Container>

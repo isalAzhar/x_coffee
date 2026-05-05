@@ -1,24 +1,20 @@
 import {
-  House,
+  Map,
   Box,
   People,
-  Truck,
-  FileEarmarkText,
   Person,
   List,
 } from "react-bootstrap-icons";
 import { useState } from "react";
 import logo from "../assets/logo-xcoffee.png";
 
-export default function SidebarAdmin({ isOpen, toggleSidebar }) {
-  const [active, setActive] = useState("Dashboard");
+export default function SidebarCanvassing({ isOpen, toggleSidebar }) {
+  const [active, setActive] = useState("Peta Kerja");
 
   const menu = [
-    { name: "Dashboard", icon: <House /> },
+    { name: "Peta Kerja", icon: <Map /> },
     { name: "Produk", icon: <Box /> },
     { name: "Mitra", icon: <People /> },
-    { name: "Distribusi", icon: <Truck /> },
-    { name: "Laporan", icon: <FileEarmarkText /> },
     { name: "Profil", icon: <Person /> },
   ];
 
@@ -41,7 +37,7 @@ export default function SidebarAdmin({ isOpen, toggleSidebar }) {
             {isOpen && (
               <div>
                 <h5 className="mb-0">X Coffee</h5>
-                <small>Admin Outlet</small>
+                <small>Canvassing</small>
               </div>
             )}
 

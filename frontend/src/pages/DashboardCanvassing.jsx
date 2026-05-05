@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SidebarCanvassing from "../components/SidebarCanvassing";
 import FormTambahMitra from "../components/FormTambahMitra";
+import { List } from "react-bootstrap-icons";
 
 import {
   Container,
@@ -8,130 +9,116 @@ import {
   Col,
   Card,
   Button,
-  Form,
-  Badge,
+  Table,
 } from "react-bootstrap";
-
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-// FIX ICON MARKER
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
-  iconUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  shadowUrl:
-    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-});
 
 export default function DashboardCanvassing() {
   const [showModal, setShowModal] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
-
   const mitra = [
     {
-      nama: "Warung Bu Sari",
-      alamat: "Jakarta Pusat",
-      stok: 50,
-      status: "aman",
-      posisi: [-6.200, 106.816],
-    },
-    {
-      nama: "Kantin Pak Joko",
-      alamat: "Jakarta Pusat",
-      stok: 17,
-      status: "aman",
-      posisi: [-6.210, 106.82],
-    },
-    {
       nama: "Warkop Cak Ali",
-      alamat: "Jakarta Selatan",
-      stok: 1,
-      status: "sedikit",
+      jenis: "Robusta",
+      jumlah: 20,
+      terjual: 15,
       posisi: [-6.23, 106.81],
     },
     {
-      nama: "Kedai Mbak Dewi",
-      alamat: "Jakarta Selatan",
-      stok: 25,
-      status: "aman",
-      posisi: [-6.24, 106.83],
+      nama: "Kantin Pak Joko",
+      jenis: "Arabica",
+      jumlah: 15,
+      terjual: 15,
+      posisi: [-6.21, 106.82],
     },
   ];
 
-  const getBadge = (status) => {
-    if (status === "aman") return "success";
-    if (status === "sedikit") return "warning";
-    return "danger";
-  };
-
   return (
     <div className="d-flex">
-      <SidebarCanvassing isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      {/* SIDEBAR */}
+      <SidebarCanvassing
+        isOpen={isOpen}
+        toggleSidebar={() => setIsOpen(!isOpen)}
+      />
 
-      <div className={`main-content flex-grow-1 ${isOpen ? "" : "expanded"}`}>
+      {/* MAIN */}
+      <div className="main-content flex-grow-1">
 
         {/* HEADER */}
-        <div className="header d-flex justify-content-between align-items-center">
+        <div className="header d-flex align-items-center gap-3">
+          <List onClick={() => setIsOpen(!isOpen)} className="toggle-btn" />
+
           <div>
-            <small className="text-muted">CANVASSING</small>
-            <h4 className="fw-bold">Peta Mitra</h4>
+            <small className="text-light">CANVASSING</small>
+            <h4 className="fw-bold text-white mb-0">Peta Kerja</h4>
           </div>
         </div>
 
-        {/* MODAL */}
-        <FormTambahMitra
-          show={showModal}
-          onClose={() => setShowModal(false)}
-        />
+        {/* CONTENT */}
+        <Container fluid className="content p-4">
 
-        <Container fluid className="p-4">
-          <Row>
+          {/* TITLE DASHBOARD */}
+            <div className="mb-4">
+              <h5 className="fw-bold mb-1">
+                Dashboard Operasional Canvassing X Coffee
+              </h5>
+              <p className="text-muted mb-0">
+                Kelola penjualan, titipan kopi, dan mitra langsung dari lapangan
+              </p>
+            </div>
 
-            {/* LEFT LIST */}
-            <Col md={4}>
+          {/* ================= STATS ================= */}
+          <Row className="g-3 mb-4">
+
+            <Col md={3}>
               <Card className="custom-card">
                 <Card.Body>
-                  <div className="d-flex justify-content-between mb-3">
-                    <h5>Mitra di sekitar</h5>
-                    <Badge bg="secondary">{mitra.length}</Badge>
-                  </div>
-
-                  <Form.Control
-                    placeholder="Cari mitra..."
-                    className="mb-3"
-                  />
-
-                  {mitra.map((m, i) => (
-                    <div key={i} className="p-3 border rounded mb-2">
-                      <strong>{m.nama}</strong>
-                      <br />
-                      <small>{m.alamat}</small>
-
-                      <div className="mt-2">
-                        <small>Total stok: {m.stok} pcs</small>
-                      </div>
-
-                      <Badge bg={getBadge(m.status)} className="mt-2">
-                        {m.status}
-                      </Badge>
-                    </div>
-                  ))}
+                  <small className="text-muted">Total Mitra</small>
+                  <h3 className="fw-bold mb-1">50</h3>
+                  <p className="text-muted small">Mitra aktif</p>
                 </Card.Body>
               </Card>
             </Col>
 
-            {/* RIGHT SIDE */}
-            <Col md={8}>
+            <Col md={3}>
+              <Card className="custom-card">
+                <Card.Body>
+                  <small className="text-muted">Total Titipan</small>
+                  <h4>74</h4>
+                  <p className="text-muted small">Produk dititipkan</p>
+                </Card.Body>
+              </Card>
+            </Col>
 
-              {/* BUTTON */}
-              <div className="d-flex justify-content-end mb-3">
+            <Col md={3}>
+              <Card className="custom-card">
+                <Card.Body>
+                  <small className="text-muted">Total Terjual</small>
+                  <h4>120 pcs</h4>
+                  <p className="text-muted small">Produk terjual</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col md={3}>
+              <Card className="custom-card">
+                <Card.Body>
+                  <small className="text-muted">Sisa Stok</small>
+                  <h4>40 pcs</h4>
+                  <p className="text-muted small">Stok tersisa</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+          </Row>
+
+          {/* ================= TABLE ================= */}
+          <Card className="custom-card mb-4">
+            <Card.Body>
+
+              <div className="d-flex justify-content-between mb-3">
+                <h5 className="mb-0">Data Mitra </h5>
+
                 <Button
                   className="btn-coffee"
                   onClick={() => setShowModal(true)}
@@ -140,40 +127,40 @@ export default function DashboardCanvassing() {
                 </Button>
               </div>
 
-              {/* MAP */}
-              <Card className="custom-card">
-                <Card.Body style={{ height: "500px", width: "100%" }}>
-                  <MapContainer
-                    center={[-6.220, 106.820]}
-                    zoom={13}
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
+              <Table striped hover responsive>
+                <thead>
+                  <tr>
+                    <th>Nama Mitra</th>
+                    <th>Jenis Kopi</th>
+                    <th>Jumlah</th>
+                    <th>Terjual</th>
+                    <th>Sisa</th>
+                  </tr>
+                </thead>
 
-                    {mitra.map((m, i) => (
-                      <Marker key={i} position={m.posisi}>
-                        <Popup>
-                          <strong>{m.nama}</strong>
-                          <br />
-                          {m.alamat}
-                          <br />
-                          Stok: {m.stok} pcs
-                        </Popup>
-                      </Marker>
-                    ))}
-                  </MapContainer>
-                </Card.Body>
-              </Card>
+                <tbody>
+                  {mitra.map((m, i) => (
+                    <tr key={i}>
+                      <td>{m.nama}</td>
+                      <td>{m.jenis}</td>
+                      <td>{m.jumlah}</td>
+                      <td>{m.terjual}</td>
+                      <td>{m.jumlah - m.terjual}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
 
-            </Col>
-          </Row>
+            </Card.Body>
+          </Card>
         </Container>
+
+        {/* MODAL */}
+        <FormTambahMitra
+          show={showModal}
+          onClose={() => setShowModal(false)}
+        />
+
       </div>
     </div>
   );

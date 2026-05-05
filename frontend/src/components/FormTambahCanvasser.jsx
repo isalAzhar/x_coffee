@@ -1,43 +1,71 @@
 import { Modal, Button, Form } from "react-bootstrap";
+import { useState } from "react";
 
 export default function FormTambahCanvasser({ show, onClose }) {
+  const [form, setForm] = useState({
+    nama: "",
+    nohp: "",
+    alamat: "",
+    area: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
-    <Modal show={show} onHide={onClose} centered>
-      
+    <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Tambah Canvasser</Modal.Title>
       </Modal.Header>
 
-      <Form>
-        <Modal.Body>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Nama</Form.Label>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-2">
             <Form.Control
-              type="text"
-              placeholder="Masukkan nama"
+              placeholder="Nama"
+              name="nama"
+              onChange={handleChange}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>No WhatsApp</Form.Label>
+          <Form.Group className="mb-2">
             <Form.Control
-              type="tel"
-              placeholder="Masukkan nomor WhatsApp anda"
+              placeholder="No HP"
+              name="nohp"
+              onChange={handleChange}
             />
           </Form.Group>
-        </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
-            Batal
-          </Button>
-          <Button type="submit" className="btn-coffee">
-            Simpan
-          </Button>
-        </Modal.Footer>
+          <Form.Group className="mb-2">
+            <Form.Control
+              as="textarea"
+              placeholder="Alamat"
+              name="alamat"
+              onChange={handleChange}
+            />
+          </Form.Group>
 
-      </Form>
+          <Form.Group className="mb-2">
+            <Form.Control
+              placeholder="Area"
+              name="area"
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Batal
+        </Button>
+
+        <Button variant="danger">Simpan</Button>
+      </Modal.Footer>
     </Modal>
   );
 }

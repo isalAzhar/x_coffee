@@ -1,4 +1,3 @@
-import React from "react";
 import {
   House,
   Box,
@@ -6,53 +5,76 @@ import {
   Truck,
   FileEarmarkText,
   Person,
+  List,
 } from "react-bootstrap-icons";
 
-export default function Sidebar() {
+export default function SidebarAdmin({ isOpen, toggleSidebar }) {
   return (
-    <div
-      className="sidebar p-3"
-      style={{ width: "250px", minHeight: "100vh" }}
-    >
-      <h4 className="fw-bold">X Coffee</h4>
-      <p className="text-muted small">Admin Outlet</p>
+    <div className={`sidebar p-3 ${isOpen ? "open" : "closed"}`}>
 
+      {/* HEADER + TOGGLE */}
+      <div className="d-flex justify-content-between align-items-center border-bottom pb-3">
+        
+        {isOpen && (
+          <div>
+            <h5 className="fw-bold mb-0">X Coffee</h5>
+            <small className="text-muted">Admin Outlet</small>
+          </div>
+        )}
+
+        {/* BUTTON TOGGLE */}
+        <List
+          size={24}
+          style={{ cursor: "pointer" }}
+          onClick={toggleSidebar}
+        />
+      </div>
+
+      {/* MENU */}
       <ul className="nav flex-column mt-4">
+
         <li className="nav-item">
-          <a className="nav-link active mb-2" href="#">
-            <House className="me-2" /> Dashboard
+          <a className="nav-link active-sidebar">
+            <House className="me-2" />
+            {isOpen && "Dashboard"}
           </a>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            <Box className="me-2" /> Produk
+          <a className="nav-link">
+            <Box className="me-2" />
+            {isOpen && "Produk"}
           </a>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            <People className="me-2" /> Mitra
+          <a className="nav-link">
+            <People className="me-2" />
+            {isOpen && "Mitra"}
           </a>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            <Truck className="me-2" /> Distribusi
+          <a className="nav-link">
+            <Truck className="me-2" />
+            {isOpen && "Distribusi"}
           </a>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            <FileEarmarkText className="me-2" /> Laporan
+          <a className="nav-link">
+            <FileEarmarkText className="me-2" />
+            {isOpen && "Laporan"}
           </a>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
-            <Person className="me-2" /> Profil
+          <a className="nav-link">
+            <Person className="me-2" />
+            {isOpen && "Profil"}
           </a>
         </li>
+
       </ul>
     </div>
   );

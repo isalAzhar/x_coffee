@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import coffee from "../assets/coffe.png";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -13,35 +13,57 @@ const Login = () => {
   const [agree, setAgree] = useState(false);
   const navigate = useNavigate();
 
+  // 🔥 AUTO REDIRECT JIKA SUDAH LOGIN
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (token && role) {
+      if (role === "admin") navigate("/admin");
+      if (role === "canvassing") navigate("/canvassing");
+      if (role === "mitra") navigate("/mitra");
+    }
+  }, []);
+
+  // 🔥 HANDLE LOGIN
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // validasi checkbox tetap di frontend
     if (!agree) {
       setError("Anda harus menyetujui syarat dan ketentuan");
       return;
     }
 
     try {
-      // 🔥 INI INTI BINDING (React → Laravel API)
       const res = await api.post("/login", {
-        phone: form.no_hp,     // 🔥 DISESUAIKAN DENGAN BACKEND
+        phone: form.no_hp,
         password: form.password
       });
 
-      // 🔥 SIMPAN TOKEN DARI LARAVEL
-      localStorage.setItem("token", res.data.token);
+      console.log("LOGIN SUCCESS:", res.data);
 
-      // 🔥 SIMPAN USER (opsional tapi bagus)
+      // 🔥 SIMPAN DATA
+      localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("role", res.data.user.role);
 
       setError("");
 
-      // 🔥 REDIRECT KE DASHBOARD SETELAH LOGIN SUKSES
-      navigate("/dashboard");
+      const role = res.data.user.role; 
+
+      // 🔥 REDIRECT SESUAI ROLE
+      if (role === "admin") {
+        navigate("/admin");
+      } else if (role === "canvassing") {
+        navigate("/canvassing");
+      } 
+      // else if (role === "mitra") {
+      //   navigate("/mitra/dashboard");
+      // }
 
     } catch (err) {
-      // 🔥 HANDLE ERROR DARI BACKEND
+      console.log("LOGIN ERROR:", err);
+
       setError(
         err.response?.data?.message || "Login gagal, periksa data Anda"
       );
@@ -52,7 +74,7 @@ const Login = () => {
     <div className="container-fluid">
       <div className="row vh-100">
 
-        {/* ================= KIRI ================= */}
+        {/* KIRI */}
         <div className="col-md-7 d-none d-md-block p-0 position-relative">
           <img 
             src={coffee} 
@@ -78,7 +100,7 @@ const Login = () => {
           </div>
         </div>
 
-        {/* ================= KANAN ================= */}
+        {/* KANAN */}
         <div className="col-md-5 d-flex align-items-center justify-content-center">
 
           <div style={{ maxWidth: "400px", width: "100%" }}>
@@ -147,7 +169,7 @@ const Login = () => {
                 LOGIN
               </button>
 
-              {/* ERROR TEXT */}
+              {/* ERROR */}
               {error && (
                 <small className="text-danger d-block mt-2">
                   {error}

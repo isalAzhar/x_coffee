@@ -62,43 +62,6 @@ body {
   color: #6c757d !important;
 }
 
-<<<<<<< HEAD
-/* ================= SIDEBAR ================= */
-.sidebar {
-  width: 250px;
-  min-height: 100vh;
-  background-color: #F2EADA;
-  border-right: 1px solid #E5DCC8;
-}
-
-.sidebar-title {
-  font-weight: bold;
-  color: #FF6F00;
-}
-
-.sidebar-sub {
-  font-size: 12px;
-  color: #999;
-}
-
-.sidebar .nav-link {
-  color: #555;
-  border-radius: 10px;
-  padding: 10px;
-  transition: 0.2s;
-}
-
-.sidebar .nav-link:hover {
-  background-color: #E5DCC8;
-}
-
-.sidebar .active {
-  background-color: #FF6F00 !important;
-  color: white !important;
-}
-
-=======
->>>>>>> c071c5d8af5fc456496ff396a1b3bdf33b6f505f
 /* ================= HEADER ================= */
 .header {
   background: white;
@@ -137,9 +100,6 @@ body {
 .badge-danger-custom {
   background-color: #D32F2F;
   color: white;
-<<<<<<< HEAD
-}
-=======
 }
 
 /* ================= Dasboard admin ================= */
@@ -307,4 +267,3 @@ body {
   margin: 0 auto;
   display: block;
 }
->>>>>>> c071c5d8af5fc456496ff396a1b3bdf33b6f505f

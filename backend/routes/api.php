@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\MitraController;
 |-------------------------
 */
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 /*
 |-------------------------
 | ADMIN AREA

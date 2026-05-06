@@ -96,13 +96,18 @@ const Login = () => {
 
         <div className="login-box">
 
-          <div className="text-center mb-4">
-            <h6 className="text-muted">X COFFEE</h6>
-            <h3 className="fw-bold">Masuk ke Dashboard</h3>
-            <p className="text-muted small">
-              Selamat datang kembali! Masukkan akun Anda.
-            </p>
-          </div>
+           {/* LOGO KECIL */}
+    <div className="d-flex align-items-center gap-2 mb-3">
+      <img src={logo} alt="logo" style={{ width: "40px" }} />
+      <small className="text-muted">X COFFEE</small>
+    </div>
+
+    {/* TITLE */}
+    <h3 className="fw-bold">Masuk ke Dashboard</h3>
+    <p className="text-muted mb-4">
+      Selamat datang kembali! Masukkan akun Anda.
+    </p>
+
 
           {/* FORM */}
           <div className="mb-3">

@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CanvassingController;
 use App\Http\Controllers\Api\MitraController;
 
+Route::get('/ping', function () {
+    return 'API OK';
+});
 /*
 |-------------------------
 | AUTH

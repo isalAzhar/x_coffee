@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CanvassingController;
 use App\Http\Controllers\Api\MitraController;
+use App\Http\Controllers\Api\ProductController;
 
 Route::get('/ping', function () {
     return 'API OK';
@@ -26,10 +27,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::post('/canvassers', [CanvassingController::class, 'store']);
     // admin lihat semua canvasser
     Route::get('/canvassers', [CanvassingController::class, 'index']);
-
-    Route::get('/admin/dashboard', function () {
+    Route::get('/admin', function () {
         return 'Admin area';
     });
+    Route::apiResource('products', ProductController::class);   
 });
 
 /*
@@ -46,6 +47,7 @@ Route::middleware(['auth:sanctum', 'role:canvassing'])->group(function () {
     Route::get('/canvassing/dashboard', function () {
         return 'Canvassing area';
     });
+    Route::apiResource('mitra', MitraController::class)->only(['index', 'store']);
 });
 
 /*

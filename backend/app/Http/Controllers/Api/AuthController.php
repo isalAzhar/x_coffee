@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-   
+
         // 1. VALIDASI INPUT
         $validator = Validator::make($request->all(), [
             'phone' => 'required',
@@ -29,7 +29,15 @@ class AuthController extends Controller
 
         // 2. CARI USER BERDASARKAN PHONE
         $user = User::where('phone', $request->phone)->first();
-
+        // Tambahkan tepat sebelum if (!$user)
+        if (!$user) {
+            return response()->json([
+                'message' => 'User tidak ditemukan',
+                'debug_input' => $request->phone,
+                'database_count' => User::count(),
+                'first_user_in_db' => User::first() ? User::first()->phone : 'Database Kosong'
+            ], 404);
+        }
         // 3. CEK USER ADA ATAU TIDAK
         if (!$user) {
             return response()->json([

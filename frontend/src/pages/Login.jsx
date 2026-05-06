@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import coffee from "../assets/coffe.png";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import logo from "../assets/logo.png";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -71,117 +71,82 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row vh-100">
+    <div className="login-container d-flex">
 
-        {/* KIRI */}
-        <div className="col-md-7 d-none d-md-block p-0 position-relative">
-          <img 
-            src={coffee} 
-            alt="kopi"
-            className="w-100 h-100 object-fit-cover"
-          />
+      {/* ===== LEFT ===== */}
+      <div className="left-panel d-flex flex-column justify-content-center align-items-center text-center text-white">
+        <img src={logo} alt="logo" className="logo mb-4" />
 
-          <div 
-            className="position-absolute top-0 start-0 w-100 h-100"
-            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-          ></div>
+        <p className="small">EST. 2024</p>
 
-          <div className="position-absolute bottom-0 start-0 p-5 text-white">
-            <h1 className="fw-bold">
-              X COFFE.<br/>
-              MANAGE.<br/>
-              <span className="text-warning">SCALE.</span>
-            </h1>
+        <h1 className="fw-bold">
+          BREW.<br />
+          MANAGE.<br />
+          <span className="text-scale">SCALE.</span>
+        </h1>
 
-            <p className="mt-3">
-              Sistem manajemen operasional kopi untuk efisiensi tinggi.
+        <p className="mt-3 small">
+          Sistem manajemen operasional kopi<br />
+          untuk efisiensi tinggi
+        </p>
+      </div>
+
+      {/* ===== RIGHT ===== */}
+      <div className="right-panel d-flex justify-content-center align-items-center">
+
+        <div className="login-box">
+
+          <div className="text-center mb-4">
+            <h6 className="text-muted">X COFFEE</h6>
+            <h3 className="fw-bold">Masuk ke Dashboard</h3>
+            <p className="text-muted small">
+              Selamat datang kembali! Masukkan akun Anda.
             </p>
           </div>
-        </div>
 
-        {/* KANAN */}
-        <div className="col-md-5 d-flex align-items-center justify-content-center">
+          {/* FORM */}
+          <div className="mb-3">
+            <label>No. WhatsApp</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="08xxxxxxxxxx"
+              value={form.no_hp}
+              onChange={(e) =>
+                setForm({ ...form, no_hp: e.target.value })
+              }
+            />
+          </div>
 
-          <div style={{ maxWidth: "400px", width: "100%" }}>
+          <div className="mb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Masukkan password"
+              value={form.password}
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
+            />
+          </div>
 
-            <h6 className="text-muted">X COFFEE</h6>
-            <h3 className="fw-bold mb-3">Masuk ke Dashboard</h3>
+          <div className="form-check mb-3">
+            <input type="checkbox" className="form-check-input" />
+            <label className="form-check-label small">
+              Saya menyetujui <span className="text-coffee">Syarat dan Ketentuan</span> X Coffee
+            </label>
+          </div>
 
-            <form onSubmit={handleSubmit}>
+          <button className="btn-warning">
+            MASUK
+          </button>
 
-              {/* NO HP */}
-              <div className="mb-3">
-                <label className="form-label">No WhatsApp</label>
-                <input
-                  type="text"
-                  className={`form-control border-secondary ${error && !agree ? "" : error ? "is-invalid" : ""}`}
-                  placeholder="Masukkan No WhatsApp Anda"
-                  value={form.no_hp}
-                  onChange={(e) => {
-                    setForm({ ...form, no_hp: e.target.value });
-                    setError("");
-                  }}
-                />
-              </div>
-
-              {/* PASSWORD */}
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  className={`form-control border-secondary ${error && !agree ? "" : error ? "is-invalid" : ""}`}
-                  placeholder="Masukkan password"
-                  value={form.password}
-                  onChange={(e) => {
-                    setForm({ ...form, password: e.target.value });
-                    setError("");
-                  }}
-                />
-              </div>
-
-              {/* CHECKBOX */}
-              <div className="form-check mb-3">
-                <input
-                  type="checkbox"
-                  className={`form-check-input ${error && !agree ? "is-invalid" : ""}`}
-                  id="terms"
-                  checked={agree}
-                  onChange={(e) => {
-                    setAgree(e.target.checked);
-                    setError("");
-                  }}
-                />
-                <label 
-                  className="form-check-label text-secondary" 
-                  htmlFor="terms"
-                  style={{ fontSize: "0.9rem" }}
-                >
-                  Saya menyetujui Syarat dan Ketentuan X Coffe
-                </label>
-              </div>
-
-              {/* BUTTON */}
-              <button 
-                className="btn btn-warning w-100"
-                disabled={!form.no_hp || !form.password}
-              >
-                LOGIN
-              </button>
-
-              {/* ERROR */}
-              {error && (
-                <small className="text-danger d-block mt-2">
-                  {error}
-                </small>
-              )}
-
-            </form>
-
+          <div className="text-center mt-4 small text-muted">
+            Butuh bantuan? <span className="text-coffee">Hubungi admin</span>
           </div>
 
         </div>
-
       </div>
     </div>
   );

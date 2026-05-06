@@ -1,0 +1,232 @@
+/* ================= ROOT ================= */
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #F8F4E9;
+  --border: #e5e4e7;
+
+  --primary: #dc3545;      /* 🔥 warna utama */
+  --primary-hover: #bb2d3b;
+  --secondary: #633A2C;    /* coklat */
+  --accent: #B88A2C;       /* gold */
+  --cream: #E0D6B8;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background-color: var(--bg) !important;
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= IMAGE ================= */
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* ================= FORM ================= */
+.form-control {
+  background-color: #f3e5d8;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--primary);
+}
+
+/* ================= BUTTON ================= */
+.btn-danger {
+  background-color: var(--primary);
+  border: none;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #dc3545, #633A2C);
+}
+
+/* ================= TEXT ================= */
+.text-coffee {
+  color: var(--primary);
+}
+
+.text-muted {
+  color: #6c757d !important;
+  font-size: 0.9rem;
+}
+
+/* ================= HEADER ================= */
+.header {
+  background: linear-gradient(to bottom, #dc3545, #633A2C);
+  color: #fff;
+  border-bottom: 1px solid #f5aeae;
+  padding: 20px;
+}
+.sidebar-header {
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ================= CARD ================= */
+.custom-card {
+  border-radius: 14px;
+  border: 1px solid #eee;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.profile-card {
+  background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border: none;
+  border-radius: 12px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: var(--bg);
+  border-right: 1px solid #eee;
+  padding: 15px;
+  transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.sidebar.closed {
+  width: 70px;
+}
+
+/* MENU ITEM */
+.sidebar-item {
+  display: flex;
+  align-items: center;      /* center horizontal */
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sidebar-item:hover {
+  background: #f5f1ea;
+}
+
+/* ACTIVE */
+.sidebar-item.active {
+  background: linear-gradient(135deg, #dc3545, #633A2C);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ================= LOGIN ================= */
+.login-container {
+  height: 100vh;
+  display: flex;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 50%;
+  background: linear-gradient(135deg, #dc3545, #633A2C);
+  padding: 40px;
+  color: #fff;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  width: 50%;
+  background-color: #F8F4E9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOX */
+.login-box {
+  width: 350px;
+}
+
+/* ================= CHART ================= */
+.chart-container {
+  height: 200px;
+}
+
+.chart-bar {
+  width: 40px;
+  background-color: var(--accent);
+  border-radius: 6px 6px 0 0;
+}
+
+/* ================= BADGE ================= */
+.badge-warning-custom {
+  background-color: var(--cream);
+  color: var(--secondary);
+}
+
+.badge-danger-custom {
+  background-color: var(--primary);
+  color: white;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.btn-warning {
+  background-color: linear-gradient(135deg, #dc3545, #633A2C);
+  border-radius: 10px;
+  padding: 12px 150px;
+  color: #fff;
+}
+.text-scale {
+  color:  #F8F4E9 !important;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+}
+
+/* ================= logout ================= */
+.logout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+.logout-card {
+  width: 360px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+
+.logout-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}

@@ -149,7 +149,7 @@ const Login = () => {
 
             <button 
               type="submit" 
-              className="btn btn-warning w-100 fw-bold" 
+              className="btn btn-danger w-100 fw-bold" 
               disabled={loading}
             >
               {loading ? "MEMPROSES..." : "MASUK"}

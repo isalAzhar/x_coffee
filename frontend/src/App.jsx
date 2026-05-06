@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardAdmin from "./pages/DashboardAdmin";
 import DashboardCanvassing from "./pages/DashboardCanvassing";
+import Profile from "./pages/Profile";
+
 import './index.css';
 
 function App() {
@@ -24,6 +26,14 @@ function App() {
       <DashboardCanvassing />
       </ProtectedRoute>
       } />
+
+       {/* profile */}
+      <Route path="/profile" element={
+      <ProtectedRoute allowedRole="admin">
+      <Profile />
+      </ProtectedRoute>
+      } />
+
 
       {/* DEFAULT REDIRECT */}
       <Route path="*" element={<Navigate to="/" />} />

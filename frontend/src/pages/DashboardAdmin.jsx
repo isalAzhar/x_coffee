@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../services/api";
 import SidebarAdmin from "../components/SidebarAdmin";
 import FormTambahCanvasser from "../components/FormTambahCanvasser";
 import { List } from "react-bootstrap-icons";
@@ -16,17 +17,31 @@ export default function DashboardAdmin() {
   const [isOpen, setIsOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [canvasserList, setCanvasserList] = useState([]);
+
   const handleTambah = (data) => {
     setCanvasserList((prev) => [...prev, data]);
   };
+
   const handleDelete = (index) => {
-  const newData = canvasserList.filter((_, i) => i !== index);
-  setCanvasserList(newData);
-};
+    const newData = canvasserList.filter((_, i) => i !== index);
+    setCanvasserList(newData);
+  };
+
+  useEffect(() => {
+    const fetchCanvasser = async () => {
+      try {
+        const res = await api.get("/canvassers");
+        setCanvasserList(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchCanvasser();
+  }, []);
 
   return (
     <div className="d-flex">
-
       <SidebarAdmin
         isOpen={isOpen}
         toggleSidebar={() => setIsOpen(!isOpen)}
@@ -79,46 +94,44 @@ export default function DashboardAdmin() {
                   <tr>
                     <th>Nama</th>
                     <th>No Whatsapp</th>
-                    <th>Password</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {/* 🔥 DATA DINAMIS */}
                   {canvasserList.length === 0 ? (
                     <tr>
-                      <td colSpan="5" className="text-center text-muted">
+                      <td colSpan="4" className="text-center text-muted">
                         Belum ada data
                       </td>
                     </tr>
                   ) : (
                     canvasserList.map((item, index) => (
                       <tr key={index}>
-                        <td>{item.nama}</td>
-                        <td>{item.nohp}</td>
-                        <td>{item.password}</td>
+                        <td>{item.name}</td>
+                        <td>{item.phone}</td>
+
                         <td>
                           <Badge bg="success">Aktif</Badge>
                         </td>
-                        <td>
-                        <Button
-                          size="sm"
-                          variant="warning"
-                          className="me-2"
-                          onClick={() => handleEdit(index)}
-                        >
-                          Edit
-                        </Button>
 
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => handleDelete(index)}
-                        >
-                          Hapus
-                        </Button>
+                        <td>
+                          <Button
+                            size="sm"
+                            variant="warning"
+                            className="me-2"
+                          >
+                            Edit
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            variant="danger"
+                            onClick={() => handleDelete(index)}
+                          >
+                            Hapus
+                          </Button>
                         </td>
                       </tr>
                     ))
@@ -132,7 +145,7 @@ export default function DashboardAdmin() {
 
         </Container>
 
-        {/* MODAL (HANYA 1X) */}
+        {/* MODAL */}
         <FormTambahCanvasser
           show={showModal}
           onClose={() => setShowModal(false)}

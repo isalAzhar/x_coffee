@@ -1,7 +1,12 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react";
+import api from "../services/api";
 
-export default function FormTambahCanvasser({ show, onClose, onSave }) {
+export default function FormTambahCanvasser({
+  show,
+  onClose,
+  onSave,
+}) {
 
   const [form, setForm] = useState({
     nama: "",
@@ -16,16 +21,38 @@ export default function FormTambahCanvasser({ show, onClose, onSave }) {
     });
   };
 
-  const handleSave = () => {
-    onSave(form);   // kirim ke dashboard
-    onClose();      // tutup modal
+  const handleSave = async () => {
+    try {
 
-    // optional: reset form setelah submit
-    setForm({
-      nama: "",
-      nohp: "",
-      password: "",
-    });
+      // KIRIM KE BACKEND
+      const res = await api.post("/canvassers", {
+        name: form.nama,
+        phone: form.nohp,
+        password: form.password,
+      });
+
+      // KIRIM DATA KE DASHBOARD
+      onSave(res.data.data);
+
+      // TUTUP MODAL
+      onClose();
+
+      // RESET FORM
+      setForm({
+        nama: "",
+        nohp: "",
+        password: "",
+      });
+
+    } catch (err) {
+
+      console.log(err);
+
+      alert(
+        err.response?.data?.message ||
+        "Gagal menambahkan canvasser"
+      );
+    }
   };
 
   const handleClose = () => {
@@ -35,13 +62,17 @@ export default function FormTambahCanvasser({ show, onClose, onSave }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Tambah Canvasser</Modal.Title>
+        <Modal.Title>
+          Tambah Canvasser
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form>
+
           <Form.Group className="mb-2">
             <h6>Nama Canvasser</h6>
+
             <Form.Control
               placeholder="Masukan Nama Canvasser"
               name="nama"
@@ -52,6 +83,7 @@ export default function FormTambahCanvasser({ show, onClose, onSave }) {
 
           <Form.Group className="mb-2">
             <h6>No Whatsapp</h6>
+
             <Form.Control
               placeholder="Masukan No Whatsapp"
               name="nohp"
@@ -62,6 +94,7 @@ export default function FormTambahCanvasser({ show, onClose, onSave }) {
 
           <Form.Group className="mb-2">
             <h6>Password</h6>
+
             <Form.Control
               type="password"
               placeholder="Masukan Password"
@@ -70,17 +103,26 @@ export default function FormTambahCanvasser({ show, onClose, onSave }) {
               onChange={handleChange}
             />
           </Form.Group>
+
         </Form>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+
+        <Button
+          variant="secondary"
+          onClick={handleClose}
+        >
           Batal
         </Button>
 
-        <Button variant="danger" onClick={handleSave}>
+        <Button
+          variant="danger"
+          onClick={handleSave}
+        >
           Simpan
         </Button>
+
       </Modal.Footer>
     </Modal>
   );

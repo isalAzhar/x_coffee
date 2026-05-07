@@ -13,7 +13,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-
         // 1. VALIDASI INPUT
         $validator = Validator::make($request->all(), [
             'phone' => 'required',

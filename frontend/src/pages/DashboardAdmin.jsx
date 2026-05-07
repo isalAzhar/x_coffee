@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../services/api";
 import SidebarAdmin from "../components/SidebarAdmin";
 import FormTambahCanvasser from "../components/FormTambahCanvasser";
 import { List } from "react-bootstrap-icons";
@@ -15,20 +16,46 @@ import {
 export default function DashboardAdmin() {
   const [isOpen, setIsOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [canvasserList, setCanvasserList] = useState([]);
+  const handleTambah = (data) => {
+    setCanvasserList((prev) => [...prev, data]);
+  };
+  const handleDelete = (index) => {
+  const newData = canvasserList.filter((_, i) => i !== index);
+  setCanvasserList(newData);
+};
+useEffect(() => {
 
+  const fetchCanvasser = async () => {
+
+    try {
+
+      const res = await api.get("/canvassers");
+
+      setCanvasserList(res.data);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  };
+
+  fetchCanvasser();
+
+}, []);
   return (
     <div className="d-flex">
-      
+
       <SidebarAdmin
         isOpen={isOpen}
         toggleSidebar={() => setIsOpen(!isOpen)}
       />
 
-      {/* MAIN CONTENT */}
-      <div className="main-content flex-grow-1">
+      <div className="body flex-grow-1">
 
         {/* HEADER */}
-        <div className="header d-flex align-items-center gap-3">
+        <div className="header d-flex align-items-center gap-3 py-3">
           <List
             className="toggle-btn"
             onClick={() => setIsOpen(!isOpen)}
@@ -40,69 +67,17 @@ export default function DashboardAdmin() {
           </div>
         </div>
 
-        {/* CONTENT */}
         <Container fluid className="content p-4">
 
-          {/* TITLE DASHBOARD */}
-            <div className="mb-4">
-              <h5 className="fw-bold mb-1">
-                Dashboard Operasional X Coffee
-              </h5>
-              <p className="text-muted mb-0">
-                Ringkasan operasional distribusi dan kinerja penjualan harian
-              </p>
-            </div>
-
-          {/* STATS */}
-          <Row className="g-3 mb-4">
-            <Col md={3}>
-              <Card className="custom-card">
-                <Card.Body>
-                  <small className="text-muted">Total Canvasser</small>
-                  <h3 className="fw-bold mb-1">50</h3>
-                  <p className="text-muted extra small">
-                    Canvasser terdaftar
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3}>
-              <Card className="custom-card">
-                <Card.Body>
-                  <small className="text-muted">Total Mitra</small>
-                  <h4>74</h4>
-                  <p className="text-muted extra small">
-                    Mitra terdaftar
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3}>
-              <Card className="custom-card">
-                <Card.Body>
-                  <small className="text-muted">Total Penjualan</small>
-                  <h4>Rp 895.000</h4>
-                  <p className="text-muted extra small">
-                    30 transaksi
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={3}>
-              <Card className="custom-card">
-                <Card.Body>
-                  <small className="text-muted">Total Distribusi</small>
-                  <h4>429 Pcs</h4>
-                  <p className="text-muted extra small">
-                    25 titipan
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+          {/* TITLE */}
+          <div className="mb-4">
+            <h5 className="fw-bold mb-1">
+              Dashboard Operasional X Coffee
+            </h5>
+            <p className="text-muted mb-0">
+              Ringkasan operasional distribusi dan kinerja penjualan harian
+            </p>
+          </div>
 
           {/* TABLE */}
           <Card className="custom-card">
@@ -115,7 +90,7 @@ export default function DashboardAdmin() {
                   className="btn-coffee"
                   onClick={() => setShowModal(true)}
                 >
-                  + Tambah Canvassing
+                  + Tambah Canvasser
                 </Button>
               </div>
 
@@ -123,47 +98,51 @@ export default function DashboardAdmin() {
                 <thead>
                   <tr>
                     <th>Nama</th>
-                    <th>No HP</th>
-                    <th>Area</th>
+                    <th>No Whatsapp</th>
+                   
                     <th>Status</th>
-                    <th></th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr>
-                    <td>Ahmad Hidayat</td>
-                    <td>08123456789</td>
-                    <td>Bandung</td>
-                    <td>
-                      <Badge bg="success">Aktif</Badge>
-                    </td>
-                    <td>
-                      <Button size="sm" variant="warning" className="me-2">
-                        Edit
-                      </Button>
-                      <Button size="sm" variant="danger">
-                        Hapus
-                      </Button>
-                    </td>
-                  </tr>
+                  {/* 🔥 DATA DINAMIS */}
+                  {canvasserList.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="text-center text-muted">
+                        Belum ada data
+                      </td>
+                    </tr>
+                  ) : (
+                    canvasserList.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.name}</td>
+                        <td>{item.phone}</td>
+                        
+                        <td>
+                          <Badge bg="success">Aktif</Badge>
+                        </td>
+                        <td>
+                        <Button
+                          size="sm"
+                          variant="warning"
+                          className="me-2"
+                          onClick={() => handleEdit(index)}
+                        >
+                          Edit
+                        </Button>
 
-                  <tr>
-                    <td>Siti Pertiwi</td>
-                    <td>08987654321</td>
-                    <td>Cimahi</td>
-                    <td>
-                      <Badge bg="secondary">Nonaktif</Badge>
-                    </td>
-                    <td>
-                      <Button size="sm" variant="warning" className="me-2">
-                        Edit
-                      </Button>
-                      <Button size="sm" variant="danger">
-                        Hapus
-                      </Button>
-                    </td>
-                  </tr>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          
+                        >
+                          Hapus
+                        </Button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
 
               </Table>
@@ -173,10 +152,11 @@ export default function DashboardAdmin() {
 
         </Container>
 
-        {/* MODAL */}
+        {/* MODAL (HANYA 1X) */}
         <FormTambahCanvasser
           show={showModal}
           onClose={() => setShowModal(false)}
+          onSave={handleTambah}
         />
 
       </div>

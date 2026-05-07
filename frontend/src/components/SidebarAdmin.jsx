@@ -8,27 +8,28 @@ import {
   List,
 } from "react-bootstrap-icons";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-xcoffee.png";
 
 export default function SidebarAdmin({ isOpen, toggleSidebar }) {
   const [active, setActive] = useState("Dashboard");
+  const navigate = useNavigate();
 
   const menu = [
-    { name: "Dashboard", icon: <House /> },
-    { name: "Produk", icon: <Box /> },
-    { name: "Mitra", icon: <People /> },
-    { name: "Distribusi", icon: <Truck /> },
-    { name: "Laporan", icon: <FileEarmarkText /> },
-    { name: "Profil", icon: <Person /> },
-  ];
+  { name: "Dashboard", icon: <House />, path: "/admin" },
+  { name: "Produk", icon: <Box />, path: "/produk" },
+  { name: "Mitra", icon: <People />, path: "/mitra" },
+  { name: "Distribusi", icon: <Truck />, path: "/distribusi" },
+  { name: "Laporan", icon: <FileEarmarkText />, path: "/laporan" },
+  { name: "Profil", icon: <Person />, path: "/profile" },
+];
 
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
 
       {/* HEADER */}
         <div className="sidebar-header">
-
-          <div className="d-flex align-items-center gap-2">
+          <div className="sidebar-header d-flex align-items-center gap-2">
             
             {/* LOGO */}
             <img
@@ -53,7 +54,9 @@ export default function SidebarAdmin({ isOpen, toggleSidebar }) {
         {menu.map((item) => (
           <div
             key={item.name}
-            onClick={() => setActive(item.name)}
+            onClick={() => {
+            setActive(item.name);
+            navigate(item.path); }}
             className={`sidebar-item ${
               active === item.name ? "active" : ""
             }`}

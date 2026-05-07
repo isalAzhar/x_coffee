@@ -2,7 +2,7 @@
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #F8F4E9;
   --border: #e5e4e7;
 
   --primary: #dc3545;      /* 🔥 warna utama */
@@ -18,7 +18,7 @@
 body {
   margin: 0;
   font-family: var(--sans);
-  background-color: #F8F4E9;
+  background-color: var(--bg) !important;
 }
 
 #root {
@@ -45,14 +45,14 @@ body {
 }
 
 /* ================= BUTTON ================= */
-.btn-warning {
+.btn-danger {
   background-color: var(--primary);
   border: none;
   color: #fff;
 }
 
 .btn-warning:hover {
-  background-color: var(--primary-hover);
+  background: linear-gradient(135deg, #dc3545, #633A2C);
 }
 
 /* ================= TEXT ================= */
@@ -67,42 +67,56 @@ body {
 
 /* ================= HEADER ================= */
 .header {
-  background: var(--primary);
+  background: linear-gradient(to bottom, #dc3545, #633A2C);
   color: #fff;
   border-bottom: 1px solid #f5aeae;
   padding: 20px;
+}
+.sidebar-header {
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* ================= CARD ================= */
 .custom-card {
   border-radius: 14px;
   border: 1px solid #eee;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.profile-card {
+  background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border: none;
+  border-radius: 12px;
 }
 
 /* ================= SIDEBAR ================= */
 .sidebar {
   width: 250px;
   min-height: 100vh;
-  background: #fff;
+  background: var(--bg);
   border-right: 1px solid #eee;
   padding: 15px;
   transition: 0.3s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 .sidebar.closed {
-  width: 80px;
+  width: 70px;
 }
 
 /* MENU ITEM */
 .sidebar-item {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  align-items: center;      /* center horizontal */
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+  padding: 12px 8px;
   border-radius: 10px;
   cursor: pointer;
-  color: #333;
   transition: 0.2s;
 }
 
@@ -112,7 +126,7 @@ body {
 
 /* ACTIVE */
 .sidebar-item.active {
-  background: var(--primary);
+  background: linear-gradient(135deg, #dc3545, #633A2C);
   color: #fff;
   font-weight: 500;
 }
@@ -180,4 +194,39 @@ body {
 }
 .text-scale {
   color:  #F8F4E9 !important;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+}
+
+/* ================= logout ================= */
+.logout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+.logout-card {
+  width: 360px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+
+.logout-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
 }

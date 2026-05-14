@@ -2,6 +2,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardAdmin from "./pages/DashboardAdmin";
+import Produk from"./pages/Produk";
+import MitraAdmin from "./pages/MitraAdmin";
+import Distribusi from "./pages/Distribusi";
+import Laporan from "./pages/Laporan";
 import DashboardCanvassing from "./pages/DashboardCanvassing";
 import Profile from "./pages/Profile";
 
@@ -19,6 +23,44 @@ function App() {
       <DashboardAdmin />
       </ProtectedRoute>
       } />
+
+      {/* PRODUK */}
+      <Route
+        path="/produk"
+        element={
+          <ProtectedRoute allowedRole="admin">
+            <Produk />
+          </ProtectedRoute>
+        }
+      />
+      {/* MITRA ADMIN */}
+      <Route
+        path="/mitra"
+        element={
+          <ProtectedRoute allowedRole="admin">
+            <MitraAdmin />
+          </ProtectedRoute>
+        }
+      />
+      {/* DISTRIBUSI */}
+      <Route
+        path="/distribusi"
+        element={
+          <ProtectedRoute allowedRole="admin">
+            <Distribusi />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* DISTRIBUSI */}
+      <Route
+        path="/laporan"
+        element={
+          <ProtectedRoute allowedRole="admin">
+            <Laporan />
+          </ProtectedRoute>
+        }
+      />
 
       {/* CANVASSING */}
       <Route path="/canvassing" element={

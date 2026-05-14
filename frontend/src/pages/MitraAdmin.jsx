@@ -361,5 +361,4 @@ function Mitra() {
     </div>
   );
 }
-
 export default Mitra;

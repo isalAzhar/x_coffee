@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "react-bootstrap";
 
-export default function FormEditCanvasser({
+function FormEditCanvasser({
   show,
   onClose,
   onSave,
@@ -83,3 +83,5 @@ export default function FormEditCanvasser({
     </Modal>
   );
 }
+
+export default FormEditCanvasser;

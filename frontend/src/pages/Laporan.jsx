@@ -312,5 +312,4 @@ function Laporan() {
     </div>
   );
 }
-
 export default Laporan;

@@ -9,7 +9,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo-xcoffee.png";
 
-export default function SidebarAdmin({ isOpen, toggleSidebar }) {
+function SidebarAdmin({ isOpen, toggleSidebar }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,3 +54,5 @@ export default function SidebarAdmin({ isOpen, toggleSidebar }) {
     </div>
   );
 }
+
+export default SidebarAdmin;

@@ -2,7 +2,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import api from "../services/api";
 
-export default function FormTambahCanvasser({
+function FormTambahCanvasser({
   show,
   onClose,
   onSave,
@@ -127,3 +127,5 @@ export default function FormTambahCanvasser({
     </Modal>
   );
 }
+
+export default FormTambahCanvasser;

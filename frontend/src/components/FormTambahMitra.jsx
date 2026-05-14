@@ -1,6 +1,6 @@
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function FormTambahMitra({ show, onClose }) {
+function FormTambahMitra({ show, onClose }) {
   return (
     <Modal show={show} onHide={onClose} centered>
       
@@ -58,3 +58,5 @@ export default function FormTambahMitra({ show, onClose }) {
     </Modal>
   );
 }
+
+export default FormTambahMitra;

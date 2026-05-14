@@ -350,5 +350,4 @@ import {
     </div>
   );
 }
-
 export default Distribusi;

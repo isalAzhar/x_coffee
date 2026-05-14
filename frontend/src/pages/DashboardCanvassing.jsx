@@ -31,6 +31,13 @@ export default function DashboardCanvassing() {
       terjual: 15,
       posisi: [-6.21, 106.82],
     },
+    {
+      nama: "Kantin Pak Joko",
+      jenis: "Arabica",
+      jumlah: 15,
+      terjual: 15,
+      posisi: [-6.21, 106.82],
+    },
   ];
 
   return (

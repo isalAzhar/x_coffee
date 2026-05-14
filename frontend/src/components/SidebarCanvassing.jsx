@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import logo from "../assets/logo-xcoffee.png";
 
-export default function SidebarCanvassing({ isOpen, toggleSidebar }) {
+function SidebarCanvassing({ isOpen, toggleSidebar }) {
   const [active, setActive] = useState("Peta Kerja");
 
   const menu = [
@@ -63,3 +63,5 @@ export default function SidebarCanvassing({ isOpen, toggleSidebar }) {
     </div>
   );
 }
+
+export default SidebarCanvassing;

@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "react-bootstrap";
 
-export default function FormTambahProduk({
+function FormTambahProduk({
   show,
   onClose,
   formProduk,
@@ -112,3 +112,5 @@ export default function FormTambahProduk({
     </Modal>
   );
 }
+
+export default FormTambahProduk;

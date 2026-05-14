@@ -1,6 +1,6 @@
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 
-export default function FormEditMitra({
+function FormEditMitra({
   show,
   onClose,
   onSave,
@@ -107,3 +107,5 @@ export default function FormEditMitra({
     </Modal>
   );
 }
+
+export default FormEditMitra;

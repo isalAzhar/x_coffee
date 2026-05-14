@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "react-bootstrap";
 
-export default function FormEditProduk({
+function FormEditProduk({
   show,
   onClose,
   formProduk,
@@ -108,3 +108,5 @@ export default function FormEditProduk({
     </Modal>
   );
 }
+
+export default FormEditProduk;

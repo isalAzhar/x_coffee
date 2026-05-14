@@ -14,7 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // 🔥 VALIDASI AKTIF SAAT COMPONENT DILOAD
+  //  VALIDASI AKTIF SAAT COMPONENT DILOAD
   useEffect(() => {
     const validateSession = async () => {
       const token = localStorage.getItem("token");

@@ -6,25 +6,51 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('sales', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('placement_id')->constrained()->cascadeOnDelete();
-    $table->foreignId('product_id')->constrained()->restrictOnDelete();
-    $table->integer('qty_sold');
-    $table->date('sale_date');
-    $table->enum('status', ['pending','verified','collected'])->default('pending');
-    $table->timestamps();
-});
+            $table->id();
+
+            $table->foreignId('placement_id')
+                ->constrained('placements')
+                ->restrictOnDelete();
+
+            $table->foreignId('mitra_id')
+                ->constrained('mitras')
+                ->restrictOnDelete();
+
+            $table->foreignId('canvasser_id')
+                ->constrained('users')
+                ->restrictOnDelete();
+
+            $table->integer('total_amount')->default(0);
+
+            $table->enum('status', ['pending', 'verified', 'collected'])
+                ->default('pending');
+
+            $table->timestamp('sold_at')->nullable();
+
+            // Audit columns
+            $table->foreignId('created_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
+
+            $table->foreignId('updated_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
+
+            $table->foreignId('deleted_by')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
+
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('sales');

@@ -8,14 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('placement_items', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->integer('price');
-            $table->integer('stock')->default(0);
+            $table->foreignId('placement_id')
+                ->constrained('placements')
+                ->restrictOnDelete();
 
-            $table->boolean('is_active')->default(true);
+            $table->foreignId('product_id')
+                ->constrained('products')
+                ->restrictOnDelete();
+
+            $table->integer('initial_qty');
+            $table->integer('returned_qty')->default(0);
+            $table->integer('sold_qty')->default(0);
 
             // Audit columns
             $table->foreignId('created_by')
@@ -40,6 +46,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('placement_items');
     }
 };

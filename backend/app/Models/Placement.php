@@ -4,46 +4,61 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-// 🔥 TAMBAHAN
-use App\Models\Product;
-use App\Models\Mitra;
-use App\Models\User;
-use App\Models\Sale;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Placement extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'canvassing_id',
+        'canvasser_id',
         'mitra_id',
-        'product_id',
-        'initial_qty',
-        'returned_qty',
         'status',
         'placed_at',
         'collected_at',
-        'settled_at'
+        'settled_at',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
-    public function product()
+    // Canvasser yang melakukan penitipan
+    public function canvasser()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class, 'canvasser_id');
     }
 
+    // Mitra / warung yang dititipkan produk
     public function mitra()
     {
-        return $this->belongsTo(Mitra::class);
+        return $this->belongsTo(Mitra::class, 'mitra_id');
     }
 
-    public function canvassing()
+    // Detail produk yang dititipkan
+    public function items()
     {
-        return $this->belongsTo(User::class, 'canvassing_id');
+        return $this->hasMany(PlacementItem::class, 'placement_id');
     }
 
+    // Sales dari placement ini
     public function sales()
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Sale::class, 'placement_id');
+    }
+
+    // Audit relations
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function deleter()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
     }
 }

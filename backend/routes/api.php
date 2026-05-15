@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserManagementController;
 use App\Http\Controllers\Api\CanvassingController;
 use App\Http\Controllers\Api\MitraController;
 use App\Http\Controllers\Api\ProductController;
@@ -23,14 +24,28 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 |-------------------------
 */
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    // admin bikin canvasser
-    Route::post('/canvassers', [CanvassingController::class, 'store']);
-    // admin lihat semua canvasser
-    Route::get('/canvassers', [CanvassingController::class, 'index']);
-    Route::get('/admin', function () {
-        return 'Admin area';
+    Route::get('/admin/dashboard', function () {
+        return response()->json([
+            'message' => 'Admin area'
+        ]);
     });
-    Route::apiResource('products', ProductController::class);   
+
+    // Admin melihat daftar canvasser
+    Route::get('/admin/canvassers', [UserManagementController::class, 'listCanvassers']);
+
+    // Admin membuat akun canvasser
+    Route::post('/admin/canvassers', [UserManagementController::class, 'createCanvasser']);
+
+    // Admin edit akun canvasser
+    Route::put('/admin/canvassers/{id}', [UserManagementController::class, 'updateCanvasser']);
+
+    // admin edit mitra, termasuk akun user mitra
+    Route::put('/admin/mitras/{id}', [MitraController::class, 'adminUpdateMitra']);
+
+     // Admin melihat semua mitra
+     Route::get('/admin/mitras', [MitraController::class, 'adminIndex']);
+
+    
 });
 
 /*
@@ -38,16 +53,21 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 | CANVASSING AREA
 |-------------------------
 */
-Route::middleware(['auth:sanctum', 'role:canvassing'])->group(function () {
-    // canvasser bikin mitra
-    Route::post('/mitra', [MitraController::class, 'store']);
-
-    // lihat mitra milik canvasser
-    Route::get('/mitra', [MitraController::class, 'index']);
-    Route::get('/canvassing/dashboard', function () {
-        return 'Canvassing area';
+Route::middleware(['auth:sanctum', 'role:canvasser'])->group(function () {
+    Route::get('/canvasser/dashboard', function () {
+        return response()->json([
+            'message' => 'Canvasser area'
+        ]);
     });
-    Route::apiResource('mitra', MitraController::class)->only(['index', 'store']);
+
+    // Canvasser melihat mitra yang dia tangani
+    Route::get('/canvasser/mitras', [MitraController::class, 'index']);
+
+    // Canvasser mendaftarkan mitra baru
+    Route::post('/canvasser/mitras', [MitraController::class, 'store']);
+
+    // Canvasser edit mitra, termasuk akun user mitra
+    Route::put('/canvasser/mitras/{id}', [MitraController::class, 'update']);
 });
 
 /*
@@ -58,6 +78,8 @@ Route::middleware(['auth:sanctum', 'role:canvassing'])->group(function () {
 Route::middleware(['auth:sanctum', 'role:mitra'])->group(function () {
 
     Route::get('/mitra/dashboard', function () {
-        return 'Mitra area';
+        return response()->json([
+            'message' => 'Mitra area'
+        ]);
     });
 });

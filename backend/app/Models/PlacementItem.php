@@ -6,28 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class PlacementItem extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'price',
-        'stock',
-        'is_active',
+        'placement_id',
+        'product_id',
+        'initial_qty',
+        'returned_qty',
+        'sold_qty',
         'created_by',
         'updated_by',
         'deleted_by',
     ];
 
-    public function placementItems()
+    public function placement()
     {
-        return $this->hasMany(PlacementItem::class, 'product_id');
+        return $this->belongsTo(Placement::class, 'placement_id');
     }
 
-    public function saleItems()
+    public function product()
     {
-        return $this->hasMany(SaleItem::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     // Audit relations
